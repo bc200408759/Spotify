@@ -4,19 +4,7 @@
 ////
 ////  Created by Ammad Gulazr on 09/07/2024.
 ////
-//
-//import UIKit
-//
-//class SignInForm: UIViewController {
-//
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        view.backgroundColor = .systemMint
-//    }
-//    
-//
-//
-//}
+
 import UIKit
 
 class SignInForm: UIViewController {
@@ -33,20 +21,27 @@ class SignInForm: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#F2F2F2")
         
-      
-        // Return Button
-        let returnbtn = UIImageView()
-        returnbtn.translatesAutoresizingMaskIntoConstraints = false
-        returnbtn.image = returnBtn
-        returnbtn.tintColor = UIColor(hex: "#414141")
-        view.addSubview(returnbtn)
+
         
-        NSLayoutConstraint.activate([
-            returnbtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
-            returnbtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
-            returnbtn.widthAnchor.constraint(equalToConstant: 32),
-            returnbtn.heightAnchor.constraint(equalToConstant: 32)
-        ])
+        // Return Button
+                let returnbtn = UIButton(type: .system)
+                returnbtn.translatesAutoresizingMaskIntoConstraints = false
+                returnbtn.setImage(returnBtn, for: .normal)
+                returnbtn.tintColor = UIColor(hex: "#414141")
+                
+                // Add target action
+                returnbtn.addTarget(self, action: #selector(gotoStartScreen), for: .touchUpInside)
+                
+                view.addSubview(returnbtn)
+                
+                NSLayoutConstraint.activate([
+                    returnbtn.topAnchor.constraint(equalTo: view.topAnchor, constant: 70),
+                    returnbtn.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 27),
+                    returnbtn.widthAnchor.constraint(equalToConstant: 32),
+                    returnbtn.heightAnchor.constraint(equalToConstant: 32)
+                ])
+        
+        
         
         
         
@@ -198,8 +193,8 @@ class SignInForm: UIViewController {
             button.setTitle("Sign In", for: .normal)
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = UIColor(hex: "#42C83C")
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-
+            button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
+        button.addTarget(self, action: #selector(gotoHomeScreen), for: .touchUpInside)
             button.layer.cornerRadius = 30.0 // Optional: round corners for aesthetics
            // button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
             
@@ -323,6 +318,18 @@ class SignInForm: UIViewController {
            UIApplication.shared.open(url, options: [:], completionHandler: nil)
        }
     
+    
+    
+    @objc func gotoStartScreen(){
+        let SignInFormScreen = StartScreen()
+        navigationController?.pushViewController(SignInFormScreen, animated: true)
+    }
+    
+    @objc func gotoHomeScreen(){
+        let SignInFormScreen = HomeScreen()
+        navigationController?.pushViewController(SignInFormScreen, animated: true)
+    }
+    
 }
 // Extension to get NSRange for Swift String
 extension String {
@@ -331,43 +338,4 @@ extension String {
         return nsString.range(of: subString)
     }
 }
-//// Extension to convert hex color string to UIColor
-//extension UIColor {
-//    convenience init(hex: String) {
-//        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-//        var int = UInt64()
-//        Scanner(string: hex).scanHexInt64(&int)
-//        let a, r, g, b: UInt64
-//        switch hex.count {
-//        case 3: // RGB (12-bit)
-//            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-//        case 6: // RGB (24-bit)
-//            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-//        case 8: // ARGB (32-bit)
-//            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-//        default:
-//            (a, r, g, b) = (255, 0, 0, 0)
-//        }
-//        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-//    }
-//}
-// Extension to convert hex color string to UIColor
-//extension UIColor {
-//    convenience init(hex: String) {
-//        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-//        var int = UInt64()
-//        Scanner(string: hex).scanHexInt64(&int)
-//        let a, r, g, b: UInt64
-//        switch hex.count {
-//        case 3: // RGB (12-bit)
-//            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-//        case 6: // RGB (24-bit)
-//            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-//        case 8: // ARGB (32-bit)
-//            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-//        default:
-//            (a, r, g, b) = (255, 0, 0, 0)
-//        }
-//        self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
-//    }
-//}
+

@@ -1,28 +1,9 @@
-////
-////  ViewController.swift
+
+////  StartScreen.swift
 ////  Spotify
 ////
 ////  Created by Ammad Gulazr on 09/07/2024.
-////
-//
-//import UIKit
-//
-//class StartScreen: UIViewController {
-//
-//// Init all components
-//    var returnBtn: UIImage {
-//        return UIImage(systemName: "arrowshape.backward.circle") ?? UIImage()
-//    }
-//    
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//        
-//        // Do any additional setup after loading the view.
-//        view.backgroundColor = .systemBackground
-//  
-//    }
-//}
+
 import UIKit
 
 class StartScreen: UIViewController {
@@ -49,20 +30,12 @@ class StartScreen: UIViewController {
         view.backgroundColor = UIColor(hex: "#F2F2F2")
         
         
-        let backButton = UIBarButtonItem()
-                backButton.title = ""
-        navigationItem.backBarButtonItem = backButton
-        
-        
-            let backButtonImage = UIImage(systemName: "arrowshape.backward.circle")
-                let backButtonImageTemplate = backButtonImage?.withRenderingMode(.alwaysTemplate)
-                
-                navigationController?.navigationBar.backIndicatorImage = backButtonImageTemplate
-                navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImageTemplate
-        navigationController?.navigationBar.tintColor = .clear // Customize back button color
+
+        navigationController?.navigationBar.tintColor = .clear // used transparent bacground to make default back button disappar
         
         
         
+
 //        DownWave
         let DownWave = UIImageView()
         DownWave.translatesAutoresizingMaskIntoConstraints = false
@@ -72,8 +45,8 @@ class StartScreen: UIViewController {
         view.addSubview(DownWave)
         
         NSLayoutConstraint.activate([
-            DownWave.topAnchor.constraint(equalTo: view.topAnchor, constant: 540),
-            DownWave.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 100),
+            DownWave.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100),
+            DownWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 200),
           
             DownWave.widthAnchor.constraint(equalToConstant: 500),
             DownWave.heightAnchor.constraint(equalToConstant: 480)
@@ -187,21 +160,23 @@ class StartScreen: UIViewController {
                 view.bringSubviewToFront(RegisterButton)
                 view.bringSubviewToFront(signInButton)
             
-               
-               // Center constraints
-            NSLayoutConstraint.activate([
-            // Sign In Button Constraints
-            RegisterButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 30px margin
-            RegisterButton.leadingAnchor.constraint(equalTo: HomeLable2.leadingAnchor, constant: 20), // Place left of the center with 100px space
-            RegisterButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-            RegisterButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
-            
-            // Sign Up Button Constraints
-            signInButton.topAnchor.constraint(equalTo: RegisterButton.topAnchor), // Align top with signInButton
-            signInButton.trailingAnchor.constraint(equalTo: HomeLable2.trailingAnchor, constant: -20), // Place 50px right of signInButton
-            signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-            signInButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
-        ])
+        
+        
+        // Center constraints
+              NSLayoutConstraint.activate([
+                  // Register Button Constraints
+                  RegisterButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 35px margin
+                  RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85), // Center button horizontally with offset
+                  RegisterButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+                  RegisterButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
+                  
+                  // Sign In Button Constraints
+                  signInButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Align top with RegisterButton
+                  signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85), // Center button horizontally with offset
+                  signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+                  signInButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
+              ])
+          
         
         
         

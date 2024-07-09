@@ -15,6 +15,7 @@
 		8D65B48D2C3CEF87001F17F7 /* SpotifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D65B48C2C3CEF87001F17F7 /* SpotifyTests.swift */; };
 		8D65B4972C3CEF87001F17F7 /* SpotifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D65B4962C3CEF87001F17F7 /* SpotifyUITests.swift */; };
 		8D65B4992C3CEF87001F17F7 /* SpotifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D65B4982C3CEF87001F17F7 /* SpotifyUITestsLaunchTests.swift */; };
+		8D65B4A82C3D190B001F17F7 /* SignInForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D65B4A72C3D190B001F17F7 /* SignInForm.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +48,7 @@
 		8D65B4922C3CEF87001F17F7 /* SpotifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D65B4962C3CEF87001F17F7 /* SpotifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUITests.swift; sourceTree = "<group>"; };
 		8D65B4982C3CEF87001F17F7 /* SpotifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8D65B4A72C3D190B001F17F7 /* SignInForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInForm.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				8D65B47E2C3CEF87001F17F7 /* Assets.xcassets */,
 				8D65B4802C3CEF87001F17F7 /* LaunchScreen.storyboard */,
 				8D65B4832C3CEF87001F17F7 /* Info.plist */,
+				8D65B4A72C3D190B001F17F7 /* SignInForm.swift */,
 			);
 			path = Spotify;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				8D65B47A2C3CEF86001F17F7 /* StartScreen.swift in Sources */,
 				8D65B4762C3CEF86001F17F7 /* AppDelegate.swift in Sources */,
 				8D65B4782C3CEF86001F17F7 /* SceneDelegate.swift in Sources */,
+				8D65B4A82C3D190B001F17F7 /* SignInForm.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

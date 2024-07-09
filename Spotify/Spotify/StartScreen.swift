@@ -49,6 +49,19 @@ class StartScreen: UIViewController {
         view.backgroundColor = UIColor(hex: "#F2F2F2")
         
         
+        let backButton = UIBarButtonItem()
+                backButton.title = ""
+        navigationItem.backBarButtonItem = backButton
+        
+        
+            let backButtonImage = UIImage(systemName: "arrowshape.backward.circle")
+                let backButtonImageTemplate = backButtonImage?.withRenderingMode(.alwaysTemplate)
+                
+                navigationController?.navigationBar.backIndicatorImage = backButtonImageTemplate
+                navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImageTemplate
+        navigationController?.navigationBar.tintColor = .clear // Customize back button color
+        
+        
         
 //        DownWave
         let DownWave = UIImageView()
@@ -149,45 +162,45 @@ class StartScreen: UIViewController {
         
         
         // Create Sign In Button
+               let RegisterButton = UIButton(type: .system)
+               RegisterButton.translatesAutoresizingMaskIntoConstraints = false
+               RegisterButton.setTitle("Register", for: .normal)
+               RegisterButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+               RegisterButton.setTitleColor(.white, for: .normal)
+               RegisterButton.backgroundColor = UIColor(hex: "#42C83C") // Set background color
+               RegisterButton.layer.cornerRadius = 30 // Rounded corners
+               
+               view.addSubview(RegisterButton)
+               
+               // Create Sign Up Button
                let signInButton = UIButton(type: .system)
                signInButton.translatesAutoresizingMaskIntoConstraints = false
-               signInButton.setTitle("Register", for: .normal)
+               signInButton.setTitle("Sign in", for: .normal)
                signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-               signInButton.setTitleColor(.white, for: .normal)
-               signInButton.backgroundColor = UIColor(hex: "#42C83C") // Set background color
+               signInButton.setTitleColor(.black, for: .normal)
+        signInButton.addTarget(self, action: #selector(gotoSignInScreen), for: .touchUpInside)
                signInButton.layer.cornerRadius = 30 // Rounded corners
                
                view.addSubview(signInButton)
-               
-               // Create Sign Up Button
-               let signUpButton = UIButton(type: .system)
-               signUpButton.translatesAutoresizingMaskIntoConstraints = false
-               signUpButton.setTitle("Sign in", for: .normal)
-               signUpButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-               signUpButton.setTitleColor(.black, for: .normal)
-              
-               signUpButton.layer.cornerRadius = 30 // Rounded corners
-               
-               view.addSubview(signUpButton)
         
         // Bring Sign In and Sign Up buttons to the front
+                view.bringSubviewToFront(RegisterButton)
                 view.bringSubviewToFront(signInButton)
-                view.bringSubviewToFront(signUpButton)
             
                
                // Center constraints
             NSLayoutConstraint.activate([
             // Sign In Button Constraints
-            signInButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 30px margin
-            signInButton.leadingAnchor.constraint(equalTo: HomeLable2.leadingAnchor, constant: 20), // Place left of the center with 100px space
-            signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-            signInButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
+            RegisterButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 30px margin
+            RegisterButton.leadingAnchor.constraint(equalTo: HomeLable2.leadingAnchor, constant: 20), // Place left of the center with 100px space
+            RegisterButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+            RegisterButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
             
             // Sign Up Button Constraints
-            signUpButton.topAnchor.constraint(equalTo: signInButton.topAnchor), // Align top with signInButton
-            signUpButton.trailingAnchor.constraint(equalTo: HomeLable2.trailingAnchor, constant: -20), // Place 50px right of signInButton
-            signUpButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-            signUpButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
+            signInButton.topAnchor.constraint(equalTo: RegisterButton.topAnchor), // Align top with signInButton
+            signInButton.trailingAnchor.constraint(equalTo: HomeLable2.trailingAnchor, constant: -20), // Place 50px right of signInButton
+            signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+            signInButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
         ])
         
         
@@ -196,8 +209,17 @@ class StartScreen: UIViewController {
         
     }
     
-  
+    //GOTO SignIn screen function
+
+    @objc func gotoSignInScreen(){
+        let SignInFormScreen = SignInForm()
+        navigationController?.pushViewController(SignInFormScreen, animated: true)
+    }
 }
+
+
+
+
 
 // Extension to convert hex color string to UIColor
 extension UIColor {

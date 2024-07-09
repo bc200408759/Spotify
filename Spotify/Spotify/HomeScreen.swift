@@ -20,6 +20,9 @@ class HomeScreen: UIViewController {
     var UpWave: UIImage {
         return UIImage(named: "UpWave") ?? UIImage()
     }
+    var GreenHomeCover1: UIImage {
+        return UIImage(named: "GreenHomeCoverImage") ?? UIImage()
+    }
     
     
     override func viewDidLoad() {
@@ -64,40 +67,129 @@ class HomeScreen: UIViewController {
         
         
         // Create the container view
-               let HomeGreenCover = UIView()
-               HomeGreenCover.translatesAutoresizingMaskIntoConstraints = false
-               HomeGreenCover.backgroundColor = UIColor(hex: "#42C83C") // Green background
+        let HomeGreenCover = UIView()
+        HomeGreenCover.translatesAutoresizingMaskIntoConstraints = false
+        HomeGreenCover.backgroundColor = UIColor(hex: "#42C83C") // Green background
         HomeGreenCover.layer.cornerRadius = 30
-               
-               view.addSubview(HomeGreenCover)
+        view.addSubview(HomeGreenCover)
                
                // Set constraints
-               NSLayoutConstraint.activate([
-                   HomeGreenCover.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-                   HomeGreenCover.topAnchor.constraint(equalTo: spotifyLogo.bottomAnchor, constant: 20),
-                   HomeGreenCover.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
-                   HomeGreenCover.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28),
-                   HomeGreenCover.heightAnchor.constraint(equalToConstant: 120)
+        NSLayoutConstraint.activate([
+        HomeGreenCover.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+        HomeGreenCover.topAnchor.constraint(equalTo: spotifyLogo.bottomAnchor, constant: 20),
+        HomeGreenCover.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 28),
+        HomeGreenCover.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -28),
+        HomeGreenCover.heightAnchor.constraint(equalToConstant: 120),
+                   
                ])
         
         
-        //        UPWAVE
-                        let UpWave = UIImageView()
-                UpWave.translatesAutoresizingMaskIntoConstraints = false
-                UpWave.contentMode = .scaleAspectFit // Adjust content mode as needed
-                UpWave.image = self.UpWave // Use self.spotifyLogo to refer to the computed property
-                UpWave.transform =  CGAffineTransform(rotationAngle: CGFloat(-10) * CGFloat.pi / 180)
-                        view.addSubview(UpWave)
-                        
-                        NSLayoutConstraint.activate([
-                            UpWave.topAnchor.constraint(equalTo: view.topAnchor, constant: -170),
-                            UpWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100),
-                          
-                            UpWave.widthAnchor.constraint(equalToConstant: 364),
-                            UpWave.heightAnchor.constraint(equalToConstant: 350)
-                        ])
-       
+        // Create a wrapper view inside HomeGreenCover for subviews that need to be clipped
+               let wrapperView = UIView()
+               wrapperView.translatesAutoresizingMaskIntoConstraints = false
+               wrapperView.clipsToBounds = true // Set to true to clip subviews
+               HomeGreenCover.addSubview(wrapperView)
+               
+               // Set constraints for wrapperView
+               NSLayoutConstraint.activate([
+                   wrapperView.leadingAnchor.constraint(equalTo: HomeGreenCover.leadingAnchor),
+                   wrapperView.trailingAnchor.constraint(equalTo: HomeGreenCover.trailingAnchor),
+                   wrapperView.topAnchor.constraint(equalTo: HomeGreenCover.topAnchor),
+                   wrapperView.bottomAnchor.constraint(equalTo: HomeGreenCover.bottomAnchor)
+               ])
         
+        
+        
+        
+        
+        //        UPWAVE
+        
+              let UpWave = UIImageView()
+              UpWave.translatesAutoresizingMaskIntoConstraints = false
+              UpWave.contentMode = .scaleAspectFit // Adjust content mode as needed
+              UpWave.image = self.UpWave // Use self.UpWaveImage to refer to the computed property
+              UpWave.transform = CGAffineTransform(rotationAngle: CGFloat(28) * CGFloat.pi / 180)
+
+            wrapperView.addSubview(UpWave)
+              
+              // Set constraints for UpWave within HomeGreenCover
+              NSLayoutConstraint.activate([
+                  UpWave.topAnchor.constraint(equalTo: HomeGreenCover.topAnchor, constant: -45),
+                  UpWave.trailingAnchor.constraint(equalTo: HomeGreenCover.trailingAnchor, constant: 50),
+                  UpWave.widthAnchor.constraint(equalToConstant: 165),
+                  UpWave.heightAnchor.constraint(equalToConstant: 158)
+              ])
+        
+        //        GreenHomeCover1
+        
+              let GreenHomeCover1 = UIImageView()
+        GreenHomeCover1.translatesAutoresizingMaskIntoConstraints = false
+        GreenHomeCover1.contentMode = .scaleAspectFit // Adjust content mode as needed
+        GreenHomeCover1.image = self.GreenHomeCover1 // Use self.UpWaveImage to refer to the computed property
+       
+
+        HomeGreenCover.addSubview(GreenHomeCover1)
+              
+              // Set constraints for UpWave within HomeGreenCover
+              NSLayoutConstraint.activate([
+                GreenHomeCover1.bottomAnchor.constraint(equalTo: HomeGreenCover.bottomAnchor, constant: 1),
+                GreenHomeCover1.trailingAnchor.constraint(equalTo: HomeGreenCover.trailingAnchor, constant: -30),
+                GreenHomeCover1.widthAnchor.constraint(equalToConstant: 325),
+                GreenHomeCover1.heightAnchor.constraint(equalToConstant: 183)
+              ])
+        
+        //HomeGreenCoverLable1
+        let HomeGreenCoverLable1 = UILabel()
+        HomeGreenCoverLable1.translatesAutoresizingMaskIntoConstraints = false
+        HomeGreenCoverLable1.text = " New Album"
+        HomeGreenCoverLable1.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        HomeGreenCoverLable1.textAlignment = .center
+        HomeGreenCoverLable1.textColor = UIColor(hex: "#FBFBFB")
+        HomeGreenCover.addSubview(HomeGreenCoverLable1)
+        
+        NSLayoutConstraint.activate([
+            HomeGreenCoverLable1.topAnchor.constraint(equalTo: HomeGreenCover.topAnchor, constant: 21),
+            HomeGreenCoverLable1.leadingAnchor.constraint(equalTo: HomeGreenCover.leadingAnchor, constant: 19),
+        
+        ])
+        
+        
+        //HomeGreenCoverLable2
+        let HomeGreenCoverLable2 = UILabel()
+        HomeGreenCoverLable2.translatesAutoresizingMaskIntoConstraints = false
+        HomeGreenCoverLable2.text = "Happier Than Ever"
+        HomeGreenCoverLable2.font = UIFont.systemFont(ofSize: 19, weight: .bold)
+        HomeGreenCoverLable2.numberOfLines = 0
+        HomeGreenCoverLable2.textAlignment = .left
+        HomeGreenCoverLable2.textColor = UIColor(hex: "#FBFBFB")
+        HomeGreenCover.addSubview(HomeGreenCoverLable2)
+        
+        NSLayoutConstraint.activate([
+            HomeGreenCoverLable2.topAnchor.constraint(equalTo: HomeGreenCoverLable1.bottomAnchor, constant: 5),
+            HomeGreenCoverLable2.leadingAnchor.constraint(equalTo: HomeGreenCoverLable1.leadingAnchor, constant: 0),
+            HomeGreenCoverLable2.widthAnchor.constraint(equalToConstant: 166)
+        ])
+        
+        
+        //HomeGreenCoverLable3
+        let HomeGreenCoverLable3 = UILabel()
+        HomeGreenCoverLable3.translatesAutoresizingMaskIntoConstraints = false
+        HomeGreenCoverLable3.text = "Billie Eilish"
+        HomeGreenCoverLable3.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        HomeGreenCoverLable3.textAlignment = .left
+        HomeGreenCoverLable3.textColor = UIColor(hex: "#FBFBFB")
+        HomeGreenCover.addSubview(HomeGreenCoverLable3)
+        
+        NSLayoutConstraint.activate([
+            HomeGreenCoverLable3.topAnchor.constraint(equalTo: HomeGreenCoverLable2.bottomAnchor, constant: 5),
+            HomeGreenCoverLable3.leadingAnchor.constraint(equalTo: HomeGreenCoverLable2.leadingAnchor, constant: 0),
+           
+        
+        ])
+        
+        
+        
+
         
     }
     @objc func gotoSignInForm(){

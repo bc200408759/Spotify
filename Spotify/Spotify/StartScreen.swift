@@ -41,15 +41,15 @@ class StartScreen: UIViewController {
         DownWave.translatesAutoresizingMaskIntoConstraints = false
         DownWave.contentMode = .scaleAspectFit // Adjust content mode as needed
         DownWave.image = self.DownWave // Use self.spotifyLogo to refer to the computed property
-        DownWave.transform =  CGAffineTransform(rotationAngle: CGFloat(10) * CGFloat.pi / 180)
+        DownWave.transform =  CGAffineTransform(rotationAngle: CGFloat(60) * CGFloat.pi / 180)
         view.addSubview(DownWave)
         
         NSLayoutConstraint.activate([
             DownWave.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100),
             DownWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 200),
           
-            DownWave.widthAnchor.constraint(equalToConstant: 500),
-            DownWave.heightAnchor.constraint(equalToConstant: 480)
+            DownWave.widthAnchor.constraint(equalToConstant: 450),
+            DownWave.heightAnchor.constraint(equalToConstant: 430)
         ])
      
 // HomeCover
@@ -57,12 +57,12 @@ class StartScreen: UIViewController {
         HomeCover.translatesAutoresizingMaskIntoConstraints = false
         HomeCover.contentMode = .scaleAspectFit // Adjust content mode as needed
         HomeCover.image = self.HomeCover // Use self.spotifyLogo to refer to the computed property
-        HomeCover.transform =  CGAffineTransform(rotationAngle: CGFloat(0) * CGFloat.pi / 180)
+        HomeCover.transform =  CGAffineTransform(rotationAngle: CGFloat(-50) * CGFloat.pi / 180)
         view.addSubview(HomeCover)
         
         NSLayoutConstraint.activate([
-            HomeCover.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 30),
-            HomeCover.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -5),
+            HomeCover.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 90),
+            HomeCover.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120),
             HomeCover.widthAnchor.constraint(equalToConstant: 452),
             HomeCover.heightAnchor.constraint(equalToConstant: 573)
         ])
@@ -71,7 +71,7 @@ class StartScreen: UIViewController {
         UpWave.translatesAutoresizingMaskIntoConstraints = false
         UpWave.contentMode = .scaleAspectFit // Adjust content mode as needed
         UpWave.image = self.UpWave // Use self.spotifyLogo to refer to the computed property
-        UpWave.transform =  CGAffineTransform(rotationAngle: CGFloat(-10) * CGFloat.pi / 180)
+        UpWave.transform =  CGAffineTransform(rotationAngle: CGFloat(-60) * CGFloat.pi / 180)
                 view.addSubview(UpWave)
                 
                 NSLayoutConstraint.activate([
@@ -138,6 +138,7 @@ class StartScreen: UIViewController {
                let RegisterButton = UIButton(type: .system)
                RegisterButton.translatesAutoresizingMaskIntoConstraints = false
                RegisterButton.setTitle("Register", for: .normal)
+        RegisterButton.addTarget(self, action: #selector(gotoSignUpScreen), for: .touchUpInside)
                RegisterButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
                RegisterButton.setTitleColor(.white, for: .normal)
                RegisterButton.backgroundColor = UIColor(hex: "#42C83C") // Set background color
@@ -190,6 +191,11 @@ class StartScreen: UIViewController {
         let SignInFormScreen = SignInForm()
         navigationController?.pushViewController(SignInFormScreen, animated: true)
     }
+    //functo to registration form
+    @objc func gotoSignUpScreen() {
+        let SignUpFormScreen = SignUpForm()
+        navigationController?.pushViewController(SignUpFormScreen, animated: true)
+    }
 }
 
 
@@ -232,3 +238,19 @@ extension UILabel {
         attributedText = attributedString
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

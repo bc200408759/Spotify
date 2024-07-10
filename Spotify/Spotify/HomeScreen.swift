@@ -7,11 +7,38 @@
 
 import UIKit
 
+
+struct SongMetadata: Codable {
+    let title: String
+    let artist: String
+    let albumArt: String
+    let audioFile: String
+}
+
+
+
 class HomeScreen: UIViewController {
+    
+    
+    // Load your song metadata from JSON (similar to your previous setup)
+       lazy var songs: [SongMetadata] = {
+           guard let url = Bundle.main.url(forResource: "songMetadata", withExtension: "json"),
+                 let data = try? Data(contentsOf: url),
+                 let songs = try? JSONDecoder().decode([SongMetadata].self, from: data) else {
+               fatalError("Failed to load or decode song metadata")
+           }
+           return songs
+       }()
+    
+    
 
     var returnBtn: UIImage {
         return UIImage(systemName: "arrowshape.backward.circle") ?? UIImage()
     }
+    var playbtn: UIImage {
+        return UIImage(systemName: "play.circle.fill") ?? UIImage()
+    }
+    
     
     var spotifyLogo: UIImage {
         return UIImage(named: "spotify") ?? UIImage()
@@ -28,6 +55,11 @@ class HomeScreen: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#F2F2F2")
+       
+      
+      
+    
+    
         
         
         // Return Button
@@ -108,7 +140,7 @@ class HomeScreen: UIViewController {
               UpWave.translatesAutoresizingMaskIntoConstraints = false
               UpWave.contentMode = .scaleAspectFit // Adjust content mode as needed
               UpWave.image = self.UpWave // Use self.UpWaveImage to refer to the computed property
-              UpWave.transform = CGAffineTransform(rotationAngle: CGFloat(28) * CGFloat.pi / 180)
+              UpWave.transform = CGAffineTransform(rotationAngle: CGFloat(-60) * CGFloat.pi / 180)
 
             wrapperView.addSubview(UpWave)
               
@@ -188,10 +220,115 @@ class HomeScreen: UIViewController {
         ])
         
         
+        // Create a hardcoded card using the first song from your data
+                if let firstSong = songs.first {
+                    createHardcodedCard(with: firstSong , HomeGreenCoverCo: HomeGreenCover.bottomAnchor)
+                }
+            }
+    
+    
+    func createHardcodedCard(with metadata: SongMetadata , HomeGreenCoverCo : NSLayoutYAxisAnchor ) {
+            // Example hardcoded card setup
+            let cardView = UIView()
+            cardView.translatesAutoresizingMaskIntoConstraints = false
+            cardView.backgroundColor = .clear
+            cardView.layer.cornerRadius = 8
+            view.addSubview(cardView)
+            
+            // Album Art Image View
+            let albumArtImageView = UIImageView()
+            albumArtImageView.translatesAutoresizingMaskIntoConstraints = false
+            albumArtImageView.contentMode = .scaleAspectFill
+            albumArtImageView.clipsToBounds = true
+            albumArtImageView.image = UIImage(named: metadata.albumArt)
+            albumArtImageView.layer.cornerRadius = 30
+            cardView.addSubview(albumArtImageView)
+            
+            // Title Label
+            let titleLabel = UILabel()
+            titleLabel.translatesAutoresizingMaskIntoConstraints = false
+            titleLabel.font = UIFont.systemFont(ofSize: 16, weight: .bold)
+            titleLabel.textColor = .black
+        titleLabel.textAlignment = .left
+            titleLabel.numberOfLines = 2
+            titleLabel.text = metadata.title
+            cardView.addSubview(titleLabel)
+            
+            // Artist Label
+            let artistLabel = UILabel()
+            artistLabel.translatesAutoresizingMaskIntoConstraints = false
+            artistLabel.font = UIFont.systemFont(ofSize: 14)
+            artistLabel.textColor = .gray
+        artistLabel.textAlignment = .left
+            artistLabel.text = metadata.artist
+            cardView.addSubview(artistLabel)
+            
+            // Play Button
+  
         
-
+        
+        let playButton = UIButton(type: .system)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.setImage(playbtn, for: .normal)
+        playButton.tintColor = UIColor(hex: "#414141")
+        
+        // Add target action
+        playButton.addTarget(self, action: #selector(gotoSongPlayer), for: .touchUpInside)
+        
+            // Add action for play button if needed
+            cardView.addSubview(playButton)
+            
+            
+            // Constraints for card view and subviews
+            NSLayoutConstraint.activate([
+                // Card View Constraints
+                cardView.topAnchor.constraint(equalTo: HomeGreenCoverCo , constant: 20),
+                cardView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                cardView.widthAnchor.constraint(equalToConstant: 140),
+                cardView.heightAnchor.constraint(equalToConstant: 300),
+                
+                // Album Art Image View Constraints
+                albumArtImageView.topAnchor.constraint(equalTo: cardView.topAnchor),
+                albumArtImageView.leadingAnchor.constraint(equalTo: cardView.leadingAnchor),
+                albumArtImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor),
+                albumArtImageView.heightAnchor.constraint(equalToConstant: 200),
+                
+                // Title Label Constraints
+                titleLabel.topAnchor.constraint(equalTo: albumArtImageView.bottomAnchor, constant: 8),
+                titleLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+                titleLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8),
+                
+                // Artist Label Constraints
+                artistLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 4),
+                artistLabel.leadingAnchor.constraint(equalTo: cardView.leadingAnchor, constant: 8),
+                artistLabel.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -8),
+                
+                // Play Button Constraints
+                
+                playButton.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: -60),
+                playButton.trailingAnchor.constraint(equalTo: albumArtImageView.trailingAnchor, constant: -20),
+                
+            ])
+    
+    
+        
+        
+        
         
     }
+    
+    
+   
+    @objc func gotoSongPlayer(_ sender: UIButton) {
+            let selectedSong = songs[sender.tag]
+//            print(selectedSong)
+            let songPlayerVC = SongPlayer()
+            songPlayerVC.song = selectedSong
+            navigationController?.pushViewController(songPlayerVC, animated: true)
+        }
+    
+    
+    
     @objc func gotoSignInForm(){
         let SignInFormScreen = SignInForm()
         navigationController?.pushViewController(SignInFormScreen, animated: true)

@@ -6,8 +6,13 @@
 ////
 
 import UIKit
+import FirebaseAuth
 
 class SignUpForm: UIViewController {
+    let button = UIButton(type: .system)
+    let emailField = UITextField()
+    let password = UITextField()
+    let userNameField = UITextField()
     
     var returnBtn: UIImage {
         return UIImage(systemName: "arrowshape.backward.circle") ?? UIImage()
@@ -105,7 +110,7 @@ class SignUpForm: UIViewController {
         supportLabel.addGestureRecognizer(tapGestureRecognizer)
         //User's Ful Name text field
         
-        let userNameField = UITextField()
+        
         userNameField.translatesAutoresizingMaskIntoConstraints = false
         
         var borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
@@ -138,7 +143,7 @@ class SignUpForm: UIViewController {
 
         // Username Text Field
         
-        let emailField = UITextField()
+      
         emailField.translatesAutoresizingMaskIntoConstraints = false
                 
         emailField.placeholder = "Enter Email"
@@ -168,7 +173,7 @@ class SignUpForm: UIViewController {
         ])
         
         // password Text Field
-                let password = UITextField()
+             
         password.translatesAutoresizingMaskIntoConstraints = false
                 borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         
@@ -204,13 +209,14 @@ class SignUpForm: UIViewController {
 //        SIgnIn Button
         
         // Button
-            let button = UIButton(type: .system)
+            
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle("Create Account", for: .normal)
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = UIColor(hex: "#42C83C")
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        button.addTarget(self, action: #selector(gotoHomeScreen), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(gotoHomeScreen), for: .touchUpInside)
+        button.addTarget(self, action: #selector(createAccountButtonTapped(_:)), for: .touchUpInside)
             button.layer.cornerRadius = 30.0 // Optional: round corners for aesthetics
            // button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
             
@@ -338,14 +344,56 @@ class SignUpForm: UIViewController {
     
     
     @objc func gotoStartScreen(){
-        let SignInFormScreen = StartScreen()
-        navigationController?.pushViewController(SignInFormScreen, animated: true)
+        let startScreen = StartScreen()
+        navigationController?.pushViewController(startScreen, animated: true)
     }
     
     @objc func gotoHomeScreen(){
-        let SignInFormScreen = HomeScreen()
+        let homeScreen = HomeScreen()
+        navigationController?.pushViewController(homeScreen, animated: true)
+    }
+    @objc func gotoSignInScreen(){
+        let SignInFormScreen = SignInForm()
         navigationController?.pushViewController(SignInFormScreen, animated: true)
     }
+    
+    
+    
+    func registerUser(email: String, password: String, fullName: String) {
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("Error creating user: \(error.localizedDescription)")
+                // Handle error (e.g., show alert to user)
+            } else {
+                // User registered successfully
+                // Update user's display name (optional)
+                let changeRequest = Auth.auth().currentUser?.createProfileChangeRequest()
+                changeRequest?.displayName = fullName
+                changeRequest?.commitChanges(completion: { error in
+                    if let error = error {
+                        print("Error updating display name: \(error.localizedDescription)")
+                        // Handle error (e.g., show alert to user)
+                    } else {
+                        // Registration successful, navigate to next screen or perform any UI update
+                        self.gotoSignInScreen()
+                    }
+                })
+            }
+        }
+    }
+    
+    @IBAction func createAccountButtonTapped(_ sender: UIButton) {
+        guard let email = emailField.text, !email.isEmpty,
+              let password = password.text, !password.isEmpty,
+              let fullName = userNameField.text, !fullName.isEmpty else {
+            // Handle case where any field is empty
+            return
+        }
+        
+        // Call registerUser function with email, password, and full name
+        registerUser(email: email, password: password, fullName: fullName)
+    }
+    
     
 }
 

@@ -7,8 +7,6 @@
 import UIKit
 
 class StartScreen: UIViewController {
-    
- 
     var spotifyLogo: UIImage {
         return UIImage(named: "SpotifyHome") ?? UIImage()
     }
@@ -23,35 +21,27 @@ class StartScreen: UIViewController {
         return UIImage(named: "UpWave") ?? UIImage()
     }
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor(hex: "#F2F2F2")
-        
-        
-
         navigationController?.navigationBar.tintColor = .clear // used transparent bacground to make default back button disappar
-        
+            
         
         
 
 //        DownWave
         let DownWave = UIImageView()
         DownWave.translatesAutoresizingMaskIntoConstraints = false
-        DownWave.contentMode = .scaleAspectFit // Adjust content mode as needed
+        DownWave.contentMode = .scaleAspectFit // Adjust content mode
         DownWave.image = self.DownWave // Use self.spotifyLogo to refer to the computed property
         DownWave.transform =  CGAffineTransform(rotationAngle: CGFloat(60) * CGFloat.pi / 180)
         view.addSubview(DownWave)
-        
         NSLayoutConstraint.activate([
             DownWave.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 100),
             DownWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 200),
-          
             DownWave.widthAnchor.constraint(equalToConstant: 450),
             DownWave.heightAnchor.constraint(equalToConstant: 430)
         ])
-     
 // HomeCover
         let HomeCover = UIImageView()
         HomeCover.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +49,6 @@ class StartScreen: UIViewController {
         HomeCover.image = self.HomeCover // Use self.spotifyLogo to refer to the computed property
         HomeCover.transform =  CGAffineTransform(rotationAngle: CGFloat(-50) * CGFloat.pi / 180)
         view.addSubview(HomeCover)
-        
         NSLayoutConstraint.activate([
             HomeCover.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: 90),
             HomeCover.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: -120),
@@ -67,40 +56,32 @@ class StartScreen: UIViewController {
             HomeCover.heightAnchor.constraint(equalToConstant: 573)
         ])
 //        UPWAVE
-                let UpWave = UIImageView()
+        let UpWave = UIImageView()
         UpWave.translatesAutoresizingMaskIntoConstraints = false
         UpWave.contentMode = .scaleAspectFit // Adjust content mode as needed
         UpWave.image = self.UpWave // Use self.spotifyLogo to refer to the computed property
         UpWave.transform =  CGAffineTransform(rotationAngle: CGFloat(-60) * CGFloat.pi / 180)
                 view.addSubview(UpWave)
                 
-                NSLayoutConstraint.activate([
-                    UpWave.topAnchor.constraint(equalTo: view.topAnchor, constant: -170),
-                    UpWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100),
+        NSLayoutConstraint.activate([
+                UpWave.topAnchor.constraint(equalTo: view.topAnchor, constant: -170),
+                UpWave.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 100),
                   
-                    UpWave.widthAnchor.constraint(equalToConstant: 364),
-                    UpWave.heightAnchor.constraint(equalToConstant: 350)
+                UpWave.widthAnchor.constraint(equalToConstant: 364),
+                UpWave.heightAnchor.constraint(equalToConstant: 350)
                 ])
         
-        
-        
-        
-
         // Spotify Logo
         let spotifyLogo = UIImageView()
         spotifyLogo.translatesAutoresizingMaskIntoConstraints = false
         spotifyLogo.contentMode = .scaleAspectFit // Adjust content mode as needed
         spotifyLogo.image = self.spotifyLogo // Use self.spotifyLogo to refer to the computed property
-        
         view.addSubview(spotifyLogo)
-        
         NSLayoutConstraint.activate([
             spotifyLogo.topAnchor.constraint(equalTo: view.topAnchor, constant: 150),
             spotifyLogo.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             spotifyLogo.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-           
         ])
-        
         //Home Label
         let HomeLable = UILabel()
         HomeLable.translatesAutoresizingMaskIntoConstraints = false
@@ -109,13 +90,11 @@ class StartScreen: UIViewController {
         HomeLable.textAlignment = .center
         HomeLable.textColor = UIColor(hex: "#383838")
         view.addSubview(HomeLable)
-        
         NSLayoutConstraint.activate([
             HomeLable.topAnchor.constraint(equalTo: spotifyLogo.bottomAnchor, constant: 50),
             HomeLable.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             HomeLable.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
         ])
-        
         //Home Lable2
         let HomeLable2 = UILabel()
         HomeLable2.translatesAutoresizingMaskIntoConstraints = false
@@ -126,67 +105,53 @@ class StartScreen: UIViewController {
         HomeLable2.textColor = UIColor(hex: "#797979")
         HomeLable2.setLineHeight(lineHeight: 24)
         view.addSubview(HomeLable2)
-        
         NSLayoutConstraint.activate([
             HomeLable2.topAnchor.constraint(equalTo: HomeLable.bottomAnchor, constant: 30),
             HomeLable2.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
             HomeLable2.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40)
         ])
-        
-        
         // Create Sign In Button
-               let RegisterButton = UIButton(type: .system)
-               RegisterButton.translatesAutoresizingMaskIntoConstraints = false
-               RegisterButton.setTitle("Register", for: .normal)
+        let RegisterButton = UIButton(type: .system)
+        RegisterButton.translatesAutoresizingMaskIntoConstraints = false
+        RegisterButton.setTitle("Register", for: .normal)
         RegisterButton.addTarget(self, action: #selector(gotoSignUpScreen), for: .touchUpInside)
-               RegisterButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-               RegisterButton.setTitleColor(.white, for: .normal)
-               RegisterButton.backgroundColor = UIColor(hex: "#42C83C") // Set background color
-               RegisterButton.layer.cornerRadius = 30 // Rounded corners
+        RegisterButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+        RegisterButton.setTitleColor(.white, for: .normal)
+        RegisterButton.backgroundColor = UIColor(hex: "#42C83C") // Set background color
+        RegisterButton.layer.cornerRadius = 30 // Rounded corners
                
-               view.addSubview(RegisterButton)
+        view.addSubview(RegisterButton)
                
-               // Create Sign Up Button
-               let signInButton = UIButton(type: .system)
-               signInButton.translatesAutoresizingMaskIntoConstraints = false
-               signInButton.setTitle("Sign in", for: .normal)
-               signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
-               signInButton.setTitleColor(.black, for: .normal)
+        // Create Sign Up Button
+        let signInButton = UIButton(type: .system)
+        signInButton.translatesAutoresizingMaskIntoConstraints = false
+        signInButton.setTitle("Sign in", for: .normal)
+        signInButton.titleLabel?.font = UIFont.systemFont(ofSize: 19)
+        signInButton.setTitleColor(.black, for: .normal)
         signInButton.addTarget(self, action: #selector(gotoSignInScreen), for: .touchUpInside)
-               signInButton.layer.cornerRadius = 30 // Rounded corners
-               
-               view.addSubview(signInButton)
+        signInButton.layer.cornerRadius = 30 // Rounded corners
+        view.addSubview(signInButton)
         
         // Bring Sign In and Sign Up buttons to the front
-                view.bringSubviewToFront(RegisterButton)
-                view.bringSubviewToFront(signInButton)
+        view.bringSubviewToFront(RegisterButton)
+        view.bringSubviewToFront(signInButton)
             
-        
-        
         // Center constraints
-              NSLayoutConstraint.activate([
-                  // Register Button Constraints
-                  RegisterButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 35px margin
-                  RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85), // Center button horizontally with offset
-                  RegisterButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-                  RegisterButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
+        NSLayoutConstraint.activate([
+            // Register Button Constraints
+            RegisterButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Place below HomeLable2 with 35px margin
+            RegisterButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: -85), // Center button horizontally with offset
+            RegisterButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+            RegisterButton.heightAnchor.constraint(equalToConstant: 73), // Adjust height as needed
                   
                   // Sign In Button Constraints
-                  signInButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Align top with RegisterButton
-                  signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85), // Center button horizontally with offset
-                  signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
-                  signInButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
+            signInButton.topAnchor.constraint(equalTo: HomeLable2.bottomAnchor, constant: 35), // Align top with RegisterButton
+            signInButton.centerXAnchor.constraint(equalTo: view.centerXAnchor, constant: 85), // Center button horizontally with offset
+            signInButton.widthAnchor.constraint(equalToConstant: 147), // Adjust width as needed
+            signInButton.heightAnchor.constraint(equalToConstant: 73) // Adjust height as needed
               ])
-          
-        
-        
-        
-
-        
     }
-    
     //GOTO SignIn screen function
-
     @objc func gotoSignInScreen(){
         let SignInFormScreen = SignInForm()
         navigationController?.pushViewController(SignInFormScreen, animated: true)
@@ -197,11 +162,6 @@ class StartScreen: UIViewController {
         navigationController?.pushViewController(SignUpFormScreen, animated: true)
     }
 }
-
-
-
-
-
 // Extension to convert hex color string to UIColor
 extension UIColor {
     convenience init(hex: String) {

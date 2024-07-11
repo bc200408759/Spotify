@@ -6,8 +6,14 @@
 ////
 
 import UIKit
+import FirebaseAuth
 
 class SignInForm: UIViewController {
+    
+    
+    let password = UITextField()
+    let button = UIButton(type: .system)
+    let usernameField = UITextField()
     
     var returnBtn: UIImage {
         return UIImage(systemName: "arrowshape.backward.circle") ?? UIImage()
@@ -105,7 +111,7 @@ class SignInForm: UIViewController {
         
         
         // Username Text Field
-                let usernameField = UITextField()
+       
                 usernameField.translatesAutoresizingMaskIntoConstraints = false
                 var borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         
@@ -139,7 +145,7 @@ class SignInForm: UIViewController {
         
         
         // password Text Field
-                let password = UITextField()
+         
         password.translatesAutoresizingMaskIntoConstraints = false
                 borderColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.2)
         
@@ -188,13 +194,15 @@ class SignInForm: UIViewController {
 //        SIgnIn Button
         
         // Button
-            let button = UIButton(type: .system)
+           
             button.translatesAutoresizingMaskIntoConstraints = false
             button.setTitle("Sign In", for: .normal)
             button.setTitleColor(.white, for: .normal)
             button.backgroundColor = UIColor(hex: "#42C83C")
             button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 30)
-        button.addTarget(self, action: #selector(gotoHomeScreen), for: .touchUpInside)
+        
+        button.addTarget(self, action: #selector(signInButtonTapped), for: .touchUpInside)
+//        button.addTarget(self, action: #selector(gotoHomeScreen), for: .touchUpInside)
             button.layer.cornerRadius = 30.0 // Optional: round corners for aesthetics
            // button.addTarget(self, action: #selector(handleButtonTap), for: .touchUpInside)
             
@@ -329,6 +337,40 @@ class SignInForm: UIViewController {
         let SignInFormScreen = HomeScreen()
         navigationController?.pushViewController(SignInFormScreen, animated: true)
     }
+    
+    @objc func signInButtonTapped() {
+            guard let emailOrUsername = usernameField.text, !emailOrUsername.isEmpty else {
+                // Handle empty username or email
+                return
+            }
+            
+            guard let password = password.text, !password.isEmpty else {
+                // Handle empty password
+                return
+            }
+            
+            // Call function to sign in user
+            signInUser(email: emailOrUsername, password: password)
+        }
+        
+        func signInUser(email: String, password: String) {
+            Auth.auth().signIn(withEmail: email, password: password) { [weak self] (authResult, error) in
+                guard let self = self else { return }
+                
+                if let error = error {
+                    print("Sign in failed:", error.localizedDescription)
+                    // Handle sign in failure (e.g., show alert)
+                    return
+                }
+                
+                // Sign in successful
+                print("User signed in successfully")
+                // Navigate to the home screen or perform other actions
+                self.gotoHomeScreen()
+            }
+        }
+    
+    
     
 }
 // Extension to get NSRange for Swift String

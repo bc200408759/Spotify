@@ -1,11 +1,36 @@
 
 [
     {
-        "title": "Jhol",
-        "artist": "Maanu x Annural Khalid",
-        "albumArt": "jhol-bannar",
-        "audioFile": "jhol.mp3"
-    }
-   
+        "title": "Bad Guy",
+        "artist": "Billie Eilish",
+        "albumArt": "jhol-bannar-1",
+        "audioFile": "Jhol"
+    },
+    {
+        "title": "Scorpion",
+        "artist": "Drake",
+        
+        "audioFile": "Jhol"
+    },{
+        "title": "As It Was",
+        "artist": "Harry Styles",
+        "albumArt": "jhol-bannar-2",
+        "audioFile": "Jhol"
+    },{
+        "title": "God Did",
+        "artist": "DJ Khaled",
+        "albumArt": "jhol-bannar-3",
+        "audioFile": "Jhol"
+    },{
+        "title": "Dont smile",
+        "artist": "Billie Eilish",
+        "albumArt": "jhol-bannar-1",
+        "audioFile": "Jhol"
+    },{
+        "title": "lilbubblegum",
+        "artist": "Billie Eilish",
+        "albumArt": "jhol-bannar-4",
+        "audioFile": "Jhol"
+    },
 ]
 
